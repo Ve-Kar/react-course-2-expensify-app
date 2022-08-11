@@ -1,5 +1,6 @@
 import uuid from 'uuid';
 import database from '../firebase/firebase';
+import expenses from '../reducers/expenses';
 
 
 
@@ -44,3 +45,42 @@ export const editExpense = (id, updates) => ({
   id,
   updates
 });
+
+//SET_EXPENSES
+
+export const setExpenses = (expenses) => ({
+  type: 'SET_EXPENSES',
+  expenses
+});
+
+
+// Exersise---->
+
+ //1.Fetch all expense data once
+//  2. Parse the data into an Array
+//  3. Dispatch SET_EXPENSES
+
+
+ export const startSetExpenses = () => {
+  return (dispatch) => { 
+   return database.ref('expenses').once('value')
+    .then((snapshot) => {
+       const expenses = [];
+      
+
+       // 2.
+       snapshot.forEach((childSnapshot) => {
+        expenses.push({    //----> pushing the items into expenses array
+          id: childSnapshot.key,
+          ...childSnapshot.val()
+        });
+       });
+
+           // 3.
+       dispatch(setExpenses(expenses));
+        });
+      };
+    }; // asinchronous action
+
+
+ 

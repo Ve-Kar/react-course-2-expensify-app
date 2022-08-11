@@ -30,13 +30,15 @@ const database = firebase.database();
 
 export { firebase, database as default };
 
-// //child_removed -> print on the screen the ID and data of removed object
+// //child_removed -> print on the screen the ID and data of removed objec
+
 //  database.ref('expenses').on('child_removed', (snapshot) => {
 //   console.log(snapshot.key, snapshot.val());
 //  });
  
 
 //  // child_changed -> fires if one of our child elements chanched
+
 //  database.ref('expenses').on('child_changed', (snapshot) => {
 //    console.log(snapshot.key, snapshot.val());
 //  });
@@ -50,6 +52,7 @@ export { firebase, database as default };
 
 
 
+// // parsing the data 
 
 // // database.ref('expenses')
 // //  .once('value')
@@ -148,7 +151,7 @@ export { firebase, database as default };
 // //   database.ref().off(onValueChange);
 // // }, 7000);
 
-// //subscribe for changes
+// // subscribe for changes
 
 // // setTimeout(() => {
 // //   database.ref('age').set(31);
