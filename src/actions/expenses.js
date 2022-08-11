@@ -1,4 +1,5 @@
 import uuid from 'uuid';
+import EditExpensePage from '../components/EditExpensePage';
 import database from '../firebase/firebase';
 import expenses from '../reducers/expenses';
 
@@ -31,6 +32,14 @@ export const addExpense = (expense)  => ({
        };
 
        
+//  Expense removal chalenge !
+
+// 1. Create startRemoveExpense (same call signature as removeExpense)
+// 2.Test startRemoveExpense with "should remove expenses from firebase"
+// 3. Use startRemoveExpense in EditExpensePage instead of removeExpense
+// 4. Adjust editExpensePage tests
+
+
 
 
 //REMOVE_EXPENSE
@@ -38,6 +47,17 @@ export const addExpense = (expense)  => ({
   type: 'REMOVE_EXPENSE',
   id
 });
+
+
+export const startRemoveExpense = ({ id } = {}) => {
+  return (dispatch) => {
+    return database.ref(`expenses/${id}`).remove().then(() => {
+      dispatch(removeExpense({ id }));
+    });
+  };
+};    
+
+ 
 
 //EDIT_EXPENSE
 export const editExpense = (id, updates) => ({
