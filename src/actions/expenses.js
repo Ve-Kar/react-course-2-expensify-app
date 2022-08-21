@@ -119,7 +119,7 @@ export const setExpenses = (expenses) => ({
        dispatch(setExpenses(expenses));
         });
       };
-    }; // asinchronous action
+    }; // asynchronous action
 
 
  

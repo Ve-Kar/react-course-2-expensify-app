@@ -14,7 +14,7 @@ import {
 import expenses from '../fixtures/expenses';
 import database from '../../firebase/firebase';
 
-const uid = 'thisismytestid';
+const uid = 'thisismytestuid';
 const defaultAuthState = { auth: { uid } };
 const createMockStore = configureMockS([thunk]);
 
@@ -23,7 +23,7 @@ beforeEach((done) => {
   expenses.forEach(({ id, description, note, amount, createdAt }) => {
     expensesData[id] = { description, note, amount, createdAt };
   });
-  database.ref(`users/${uid}/expenses`).set(expensesData).then(()=> done());
+  database.ref(`users/${uid}/expenses`).set(expensesData).then(() => done());
 });
 
 
@@ -36,7 +36,7 @@ test('should setup remove expense action object', () => {
 });
 
 test('should remove expense from firebase', (done) => {
-  const store =createMockStore(defaultAuthState);
+  const store = createMockStore(defaultAuthState);
   const id = expenses[2].id;
   store.dispatch(startRemoveExpense({ id })).then(() => {
     const actions = store.getActions();
@@ -45,7 +45,7 @@ test('should remove expense from firebase', (done) => {
       id
     });
      // fetch the data and assert the data was deleted
-     return database.ref( `users/${uid}/expenses/${id}`).once('value');
+     return database.ref(`users/${uid}/expenses/${id}`).once('value');
      }).then((snapshot) => {
       expect(snapshot.val()).toBeFalsy();
       done();
@@ -64,6 +64,8 @@ test('should remove expense from firebase', (done) => {
    });
  });
 
+
+  
    test ('should edit expense from firebase', (done) => {
     const store = createMockStore(defaultAuthState);
     const id = expenses[0].id;
@@ -75,7 +77,7 @@ test('should remove expense from firebase', (done) => {
         id,
         updates
       });
-      return database.ref(`user/${uid}/expenses/${id}`).once('value');
+      return database.ref(`users/${uid}/expenses/${id}`).once('value');
       }).then((snapshot) => {
         expect(snapshot.val().amount).toBe(updates.amount);
         done();
